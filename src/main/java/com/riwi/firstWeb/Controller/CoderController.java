@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.riwi.firstWeb.Entity.Coder;
 import com.riwi.firstWeb.Service.CoderService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequestMapping("/")
@@ -34,10 +38,26 @@ public class CoderController {
   }
 
   @GetMapping("/form")
-  public String showViewFormCoder() {
+  public String showViewFormCoder(Model objModel) {
     
+    objModel.addAttribute("coder", new Coder());
+    // para recibir info de la vita
+    objModel.addAttribute("action", "/coder/create");
+    //necesito crear un postmapping para recibir la info
     return"viewForm";
   }
+
+    /*Método para insertar un coder mediante el verbo POST
+     * @ModelAttribute se encarga de obtener la información enviada desde la vista
+     */
+  @PostMapping("/coder/create")
+  public String createCoder(@ModelAttribute Coder objCoder) {
+      //para recibir info @ModelAttribute
+      //llamamos el servicio enviandole el coder a insertar
+      this.objCoderService.insert(objCoder);
+      return "redirect:/";
+  }
+  
 }
 
 
