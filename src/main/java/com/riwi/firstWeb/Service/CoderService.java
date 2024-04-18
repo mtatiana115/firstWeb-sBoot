@@ -26,4 +26,36 @@ public class CoderService {
   public List<Coder> findAll(){
     return this.objCoderRepository.findAll();
   }
+
+  /*
+  *Servicio para guardar un coder
+  */
+  public Coder insert(Coder objCoder){
+    return this.objCoderRepository.save(objCoder);
+  }
+
+  /*
+   * Servicio para actualizar un coder
+   */
+
+  public Coder update(Long id,Coder objCoder){
+    /* Buscar al coder con ese id */
+    Coder objCoderDB = this.findById(id);
+
+    /* Veridicar que si exista */
+    if (objCoder == null) return null;
+  
+    /*Actualizar el coder antiguo */
+    objCoderDB = objCoder;
+
+    /*guardarlo */
+
+    return this.objCoderRepository.save(objCoderDB);
+  }
+
+  //obtener el id
+  public Coder findById(Long id){
+    
+    return this.objCoderRepository.findById(id).orElse(null);
+  }
 }

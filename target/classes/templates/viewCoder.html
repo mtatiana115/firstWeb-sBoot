@@ -41,7 +41,11 @@
 						<td>
 							<div class="d-flex gap-2">
 								<a href="" class="btn btn-danger">Delete</a>
-								<a href="" class="btn btn-primary">Update</a>
+								<a
+									th:href="@{/update/{id}(id=${coder.id})}"
+									class="btn btn-primary"
+									>Update</a
+								>
 							</div>
 						</td>
 					</tr>
