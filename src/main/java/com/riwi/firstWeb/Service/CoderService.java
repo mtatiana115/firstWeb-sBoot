@@ -43,7 +43,7 @@ public class CoderService {
     Coder objCoderDB = this.findById(id);
 
     /* Veridicar que si exista */
-    if (objCoder == null) return null;
+    if (objCoderDB == null) return null;
   
     /*Actualizar el coder antiguo */
     objCoderDB = objCoder;
@@ -57,5 +57,13 @@ public class CoderService {
   public Coder findById(Long id){
     
     return this.objCoderRepository.findById(id).orElse(null);
+  }
+
+  /*
+   * Servicio para eliminar un coder
+   */
+
+  public void delete (Long id){
+    this.objCoderRepository.deleteById(id);
   }
 }

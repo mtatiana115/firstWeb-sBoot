@@ -69,7 +69,7 @@ public String showFormUpdate(@PathVariable Long id, Model objModel) {
 /*
  * Métoddo para actualizar
  */
-
+//postMapping es cuando tenemos un formulario
 @PostMapping("/edit/{id}")
 public String updateCoder(@PathVariable Long id,@ModelAttribute Coder objCoder) {
   
@@ -77,6 +77,18 @@ public String updateCoder(@PathVariable Long id,@ModelAttribute Coder objCoder) 
     
     return "redirect:/";
 }
+
+/*
+ * Método para eliminar
+ */
+//getMapping es cuando NO tenemos un formulario
+@GetMapping("/delete/{id}")
+//pathVariable es para poder recibir el id
+public String deleteCoder(@PathVariable Long id, @ModelAttribute Coder objCoder) {
+  this.objCoderService.delete(id);    
+    return "redirect:/";
+}
+
 
 
     /*Método para insertar un coder mediante el verbo POST
