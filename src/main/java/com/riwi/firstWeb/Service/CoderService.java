@@ -3,6 +3,9 @@ package com.riwi.firstWeb.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.firstWeb.Entity.Coder;
@@ -66,4 +69,17 @@ public class CoderService {
   public void delete (Long id){
     this.objCoderRepository.deleteById(id);
   }
+  
+  /*
+   * Método para listar los coder de forma paginada
+   */
+  public Page<Coder> findPaginated(int page, int size){
+    if (page < 0) {
+      page = 1;
+    }
+      //Crear objeto de paginación
+    Pageable objPageable = PageRequest.of(page, size);
+    return this.objCoderRepository.findAll(objPageable);
+  }
+
 }

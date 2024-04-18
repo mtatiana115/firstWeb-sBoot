@@ -3,12 +3,14 @@ package com.riwi.firstWeb.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.riwi.firstWeb.Entity.Coder;
 import com.riwi.firstWeb.Service.CoderService;
@@ -32,11 +34,13 @@ public class CoderController {
    */
   @GetMapping   //Lo dejo sin ruta para que se active automáticamente este de acá
 //Importo model de springFramneWork.ui.model=> es el conector entre la vista y java es como un carrito que conecta java con la vista en html
-  public String showViewGetAll(Model objModel){
+  public String showViewGetAll(Model objModel, @RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "3") int size){
     //traer del servicio, llamo el servicio y guardo la lista de coder
-    List<Coder> list = this.objCoderService.findAll();
+    Page<Coder> list = this.objCoderService.findPaginated(page-1, size);
     //Agregar la lista de coders al carrito para que lo lleve a la vista, uso addAtribute (llave, valor)
     objModel.addAttribute("coderList", list);
+    objModel.addAttribute("currentPage", page);
+    objModel.addAttribute("totalPages", list.getTotalPages());
     //retornar el nombre de cómo se va a llamar el archivo html en la vista
     return "viewCoder";
     //se crea la vista html en la carpeta main/resource/templates
